@@ -1,18 +1,12 @@
 # Highlight.js
 
-[![Build Status](https://travis-ci.org/isagalaev/highlight.js.svg?branch=main)]
-(https://travis-ci.org/isagalaev/highlight.js)
+[![Build Status](https://travis-ci.org/isagalaev/highlight.js.svg?branch=main)](https://travis-ci.org/isagalaev/highlight.js)
 
-Highlight.js is a syntax highlighter written in JavaScript. It works in
-the browser as well as on the server. It works with pretty much any
-markup, doesn’t depend on any framework and has automatic language
-detection.
+Highlight.js는 JavaScript로 작성된 문법 하이라이터입니다. 브라우저와 서버 모두에서 동작하며, 거의 모든 마크업과 함께 사용할 수 있고 특정 프레임워크에 의존하지 않으며 자동 언어 감지 기능을 제공합니다.
 
-## Getting Started
+## 시작하기
 
-The bare minimum for using highlight.js on a web page is linking to the
-library along with one of the styles and calling
-[`initHighlightingOnLoad`][1]:
+웹 페이지에서 highlight.js를 사용하기 위한 최소한의 설정은 라이브러리와 스타일 중 하나를 불러오고 [`initHighlightingOnLoad`][1]를 호출하는 것입니다.
 
 ```html
 <link rel="stylesheet" href="/path/to/styles/default.css">
@@ -20,32 +14,25 @@ library along with one of the styles and calling
 <script>hljs.initHighlightingOnLoad();</script>
 ```
 
-This will find and highlight code inside of `<pre><code>` tags; it tries
-to detect the language automatically. If automatic detection doesn’t
-work for you, you can specify the language in the `class` attribute:
+이렇게 하면 `<pre><code>` 태그 안의 코드를 찾아 하이라이트하며, 언어를 자동으로 감지하려 시도합니다. 자동 감지가 잘 동작하지 않는다면 `class` 속성으로 언어를 지정할 수 있습니다.
 
 ```html
 <pre><code class="html">...</code></pre>
 ```
 
-The list of supported language classes is available in the [class
-reference][2].  Classes can also be prefixed with either `language-` or
-`lang-`.
+지원되는 언어 클래스 목록은 [클래스 레퍼런스][2]에서 확인할 수 있습니다. 클래스 이름 앞에 `language-` 또는 `lang-` 접두사를 붙여도 됩니다.
 
-To disable highlighting altogether use the `nohighlight` class:
+하이라이팅을 완전히 비활성화하려면 `nohighlight` 클래스를 사용하세요.
 
 ```html
 <pre><code class="nohighlight">...</code></pre>
 ```
 
-## Custom Initialization
+## 사용자 정의 초기화
 
-When you need a bit more control over the initialization of
-highlight.js, you can use the [`highlightBlock`][3] and [`configure`][4]
-functions. This allows you to control *what* to highlight and *when*.
+highlight.js 초기화를 좀 더 세밀하게 제어하려면 [`highlightBlock`][3]과 [`configure`][4] 함수를 사용하세요. 이를 통해 *무엇을*, *언제* 하이라이트할지 조절할 수 있습니다.
 
-Here’s an equivalent way to calling [`initHighlightingOnLoad`][1] using
-jQuery:
+다음은 jQuery를 사용해 [`initHighlightingOnLoad`][1]와 동일한 동작을 구현한 예시입니다.
 
 ```javascript
 $(document).ready(function() {
@@ -55,9 +42,7 @@ $(document).ready(function() {
 });
 ```
 
-You can use any tags instead of `<pre><code>` to mark up your code. If
-you don't use a container that preserve line breaks you will need to
-configure highlight.js to use the `<br>` tag:
+`<pre><code>` 대신 원하는 태그를 사용해 코드를 마크업할 수도 있습니다. 줄바꿈을 유지하지 않는 컨테이너를 사용한다면 highlight.js가 `<br>` 태그를 사용하도록 설정해야 합니다.
 
 ```javascript
 hljs.configure({useBR: true});
@@ -67,15 +52,13 @@ $('div.code').each(function(i, block) {
 });
 ```
 
-For other options refer to the documentation for [`configure`][4].
+기타 옵션은 [`configure`][4] 문서를 참고하세요.
 
+## 웹 워커
 
-## Web Workers
+매우 큰 코드 조각을 처리할 때 브라우저 창이 멈추지 않도록 웹 워커 안에서 하이라이팅을 실행할 수 있습니다.
 
-You can run highlighting inside a web worker to avoid freezing the browser
-window while dealing with very big chunks of code.
-
-In your main script:
+메인 스크립트 예시는 다음과 같습니다.
 
 ```javascript
 addEventListener('load', function() {
@@ -86,7 +69,7 @@ addEventListener('load', function() {
 })
 ```
 
-In worker.js:
+`worker.js`는 다음과 같습니다.
 
 ```javascript
 onmessage = function(event) {
@@ -96,50 +79,35 @@ onmessage = function(event) {
 }
 ```
 
+## 라이브러리 받기
 
-## Getting the Library
+highlight.js는 호스팅된 브라우저 스크립트 또는 커스텀 빌드 스크립트, 그리고 서버 모듈 형태로 사용할 수 있습니다. 기본 브라우저 스크립트는 AMD와 CommonJS를 모두 지원하므로 빌드 과정 없이도 RequireJS나 Browserify를 사용할 수 있습니다. 서버 모듈 역시 Browserify와 잘 동작하지만, 서버보다는 브라우저에 특화된 빌드 옵션도 선택할 수 있습니다. 자세한 옵션은 [다운로드 페이지][5]를 참고하세요.
 
-You can get highlight.js as a hosted, or custom-build, browser script or
-as a server module. Right out of the box the browser script supports
-both AMD and CommonJS, so if you wish you can use RequireJS or
-Browserify without having to build from source. The server module also
-works perfectly fine with Browserify, but there is the option to use a
-build specific to browsers rather than something meant for a server.
-Head over to the [download page][5] for all the options.
+**GitHub에 직접 링크하지 마세요.** 라이브러리는 소스 상태 그대로 사용할 수 없으며 빌드가 필요합니다. 사전 패키징된 옵션이 맞지 않는다면 [빌드 문서][6]를 참고하세요.
 
-**Don't link to GitHub directly.** The library is not supposed to work straight
-from the source, it requires building. If none of the pre-packaged options
-work for you refer to the [building documentation][6].
-
-**The CDN-hosted package doesn't have all the languages.** Otherwise it'd be
-too big. If you don't see the language you need in the ["Common" section][5],
-it can be added manually:
+**CDN으로 제공되는 패키지에는 모든 언어가 포함되어 있지 않습니다.** 전체를 포함하기엔 용량이 너무 큽니다. ["Common" 섹션][5]에서 원하는 언어를 찾을 수 없다면 수동으로 추가할 수 있습니다.
 
 ```html
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
 ```
 
-**On Almond.** You need to use the optimizer to give the module a name. For
-example:
+**Almond 사용 시 참고.** 옵티마이저를 사용해 모듈 이름을 지정해야 합니다. 예시는 다음과 같습니다.
 
 ```
 r.js -o name=hljs paths.hljs=/path/to/highlight out=highlight.js
 ```
 
+## 라이선스
 
-## License
+Highlight.js는 BSD 라이선스로 배포됩니다. 자세한 내용은 [LICENSE][7] 파일을 참고하세요.
 
-Highlight.js is released under the BSD License. See [LICENSE][7] file
-for details.
+## 링크
 
-## Links
+공식 사이트: <https://highlightjs.org/>
 
-The official site for the library is at <https://highlightjs.org/>.
+API 및 기타 주제에 대한 자세한 문서는 <https://highlightjs.readthedocs.io/>에서 확인할 수 있습니다.
 
-Further in-depth documentation for the API and other topics is at
-<https://highlightjs.readthedocs.io/>.
-
-Authors and contributors are listed in the [AUTHORS.en.txt][8] file.
+저자와 기여자 목록은 [AUTHORS.en.txt][8] 파일에 정리되어 있습니다.
 
 [1]: https://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload
 [2]: https://highlightjs.readthedocs.io/en/latest/css-classes-reference.html
